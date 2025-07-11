@@ -3,7 +3,7 @@ from email.message import EmailMessage
 import os
 import ssl
 
-def send_email(to, subject, body):
+def send_email(subject, body):
     sender = os.environ.get('EMAIL_USER')
     password = os.environ.get('EMAIL_PASS')
 
@@ -14,7 +14,7 @@ def send_email(to, subject, body):
     msg.set_content(body)
     msg['Subject'] = subject
     msg['From'] = sender
-    msg['To'] = to
+    msg['To'] = os.environ.get('EMAIL_TO')
 
     # Disable certificate verification (temporary workaround)
     context = ssl._create_unverified_context()
