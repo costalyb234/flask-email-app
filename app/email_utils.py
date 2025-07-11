@@ -1,6 +1,7 @@
 import smtplib
 from email.message import EmailMessage
 import os
+import ssl
 
 def send_email(to, subject, body):
     sender = os.environ.get('EMAIL_USER')
@@ -15,6 +16,12 @@ def send_email(to, subject, body):
     msg['From'] = sender
     msg['To'] = to
 
-    with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
+    # Disable certificate verification (temporary workaround)
+    context = ssl._create_unverified_context()
+
+    with smtplib.SMTP('mail.bpserver.site', 587) as smtp:
+        smtp.ehlo()
+        smtp.starttls(context=context)  # Pass the unverified context here
+        smtp.ehlo()
         smtp.login(sender, password)
         smtp.send_message(msg)
