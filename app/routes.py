@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from your_email_module import send_email  # replace with actual import
+from email_utils import send_email  # replace with actual import
 
 app = Flask(__name__)
 
