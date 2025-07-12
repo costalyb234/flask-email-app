@@ -7,11 +7,11 @@ main = Blueprint("main", __name__)
 def send_email_route():
     data = request.get_json()
 
-    if not data or not all(k in data for k in ("subject", "message")):
-        return jsonify({"error": "Missing 'subject', or 'message'"}), 400
+    if not data or not all(k in data for k in ("name", "subject", "message")):
+        return jsonify({"error": "Missing 'name', 'subject', or 'message'"}), 400
 
     try:
-        send_email(data['subject'], data['message'])
+        send_email(data['name'], data['subject'], data['message'])
         return jsonify({"status": "Email sent"}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500

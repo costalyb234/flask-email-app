@@ -3,9 +3,10 @@ from email.message import EmailMessage
 import os
 import ssl
 
-def send_email(subject, body):
+def send_email(name, subject, body):
     sender = os.environ.get('EMAIL_USER')
     password = os.environ.get('EMAIL_PASS')
+    sender_name = name
 
     if not sender or not password:
         raise ValueError("Email credentials not set")
@@ -13,7 +14,7 @@ def send_email(subject, body):
     msg = EmailMessage()
     msg.set_content(body)
     msg['Subject'] = subject
-    msg['From'] = sender
+    msg['From'] = f"{sender_name} <{sender}>"
     msg['To'] = os.environ.get('EMAIL_TO')
 
     # Disable certificate verification (temporary workaround)
