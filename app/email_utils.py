@@ -3,10 +3,10 @@ from email.message import EmailMessage
 import os
 import ssl
 
-def send_email(name, subject, body):
+def send_email(subject, body):
     sender = os.environ.get('EMAIL_USER')
     password = os.environ.get('EMAIL_PASS')
-    sender_name = name
+    sender_name = "God of Web"
 
     if not sender or not password:
         raise ValueError("Email credentials not set")
